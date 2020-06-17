@@ -1,10 +1,11 @@
 import unittest
-from dll_stack import Stack
+from dll_stack import Stack, ListStack
 
 
 class QueueTests(unittest.TestCase):
     def setUp(self):
-        self.s = Stack()
+        # self.s = Stack()
+        self.s = ListStack()
 
     def test_len_returns_0_for_empty_stack(self):
         self.assertEqual(self.s.len(), 0)
