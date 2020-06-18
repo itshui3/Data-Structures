@@ -93,10 +93,45 @@ class DoublyLinkedList:
             node.next, self.head.prev, self.head = self.head, node, node
 
     def move_to_end(self, node):
-        pass
+        
+        if self.tail == node: return
+        elif self.head == node:
+            self.head, self.head.prev, node.next = self.head.next, None, None
+            self.tail.next, node.prev, self.tail = node, self.tail, node
+        else:
+            node_next, node_prev = node.next, node.prev
+            node_next.prev, node_prev.next = node_prev, node_next
+            self.tail.next, node.prev, self.tail = node, self.tail, node
 
     def delete(self, node):
-        pass
+        if self.length == 0: return None
+
+        self.length -= 1
+        if self.head == self.tail:
+            self.head, self.tail = None, None
+        elif self.head == node:
+            self.head = self.head.next
+            self.head.prev = None
+            node.next = None
+        elif self.tail == node:
+            self.tail = self.tail.prev
+            self.tail.next = None
+            node.prev = None
+        else:
+            node_prev, node_next = node.prev, node.next
+            node_prev.next, node_next.prev = node_next, node_prev
+
+            node = None
 
     def get_max(self):
-        pass
+        if self.length == 0: return None
+        
+        cur = self.head
+        max_val = None
+        while cur is not None:
+            if max_val is None: max_val = cur.value
+            elif cur.value > max_val: max_val = cur.value
+
+            cur = cur.next
+        return max_val
+
