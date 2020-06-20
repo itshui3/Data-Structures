@@ -11,7 +11,12 @@ class LRUCache:
     def __init__(self, limit=10):
         self.max = limit
         self.cur = 0
+        # if cur == max, adding should remove LRU
         self.storage = DoublyLinkedList()
+        # self.storage.head
+        # self.storage.tail
+        # self.storage.length
+        self.cache = {}
 
     """
     Retrieves the value associated with the given key. Also
@@ -21,8 +26,10 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
-
+        if key in self.cache:
+            self.storage.move_to_front(self.cache[key])
+            return self.cache[key].value
+        else: return None
     """
     Adds the given key-value pair to the cache. The newly-
     added pair should be considered the most-recently used
@@ -34,4 +41,16 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+
+        if key not in self.cache: 
+            self.cur += 1
+            self.storage.add_to_head(value)
+            self.cache[key] = self.storage.head
+        else:
+            print(self.cache[key].prev, self.cache[key].next)
+            self.storage.move_to_front(self.cache[key])
+            self.storage.head.value = value
+
+        if self.cur > self.max: 
+            self.storage.remove_from_tail()
+            self.cur -= 1
