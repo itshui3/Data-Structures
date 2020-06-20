@@ -110,9 +110,7 @@ class DoublyLinkedList:
 
         node.prev = self.tail
         self.tail.next = node
-        self.tail = node
-
-        
+        self.tail = node    
 
     def delete(self, node):
         # deletes a node
