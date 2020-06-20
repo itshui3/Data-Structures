@@ -28,7 +28,7 @@ class LRUCache:
     def get(self, key):
         if key in self.cache:
             self.storage.move_to_front(self.cache[key])
-            return self.cache[key].value
+            return self.cache[key].value[1]
         else: return None
     """
     Adds the given key-value pair to the cache. The newly-
@@ -41,16 +41,15 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-
-        if key not in self.cache: 
-            self.cur += 1
-            self.storage.add_to_head(value)
-            self.cache[key] = self.storage.head
-        else:
-            print(self.cache[key].prev, self.cache[key].next)
+        if key in self.cache:
+            self.cache[key].value = [key, value]
             self.storage.move_to_front(self.cache[key])
-            self.storage.head.value = value
+        else:
+            self.storage.add_to_head([key, value])
+            self.cache[key] = self.storage.head
+            self.cur += 1
 
         if self.cur > self.max: 
+            del self.cache[self.storage.tail.value[0]]
             self.storage.remove_from_tail()
             self.cur -= 1
