@@ -1,7 +1,7 @@
 import unittest
 from doubly_linked_list import ListNode
 from doubly_linked_list import DoublyLinkedList
-from dll_2 import DoublyLinkedList
+from dll_3 import DoublyLinkedList
 
 
 class DoublyLinkedListTests(unittest.TestCase):
