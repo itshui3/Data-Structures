@@ -10,7 +10,15 @@ class LinkedList:
         self.length = 0
 
     def add_to_head(self, value):
-        pass
+        # 1) create a new node
+        new_node = Node(value)
+        # 2) point new_node's next pointer
+        # to sefl.head
+        new_node.next = self.head
+        # 3) linked list head pointer pointing to 
+        # newly created node
+        self.head = new_node
+        self.length += 1
 
     def add_to_tail(self, value):
         # First In

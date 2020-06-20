@@ -57,12 +57,24 @@ class DoublyLinkedList:
         if self.length < 1: return None
 
         self.length -= 1
+        if self.length == 1: self.head, self.tail = None, None
 
-        removed = self.head
-        if self.head == self.tail: self.head, self.tail = None, None
-        else: self.head, self.head.prev, removed.next = self.head.next, None, None
+        if self.length == 2:
+            self.head.next = None
+            self.head = self.tail
+
+        if self.length > 2:
+            remove_head = self.head
+            self.head = self.head.next
+
+            remove_head.next = None
+        # self.length -= 1
+
+        # removed = self.head
+        # if self.head == self.tail: self.head, self.tail = None, None
+        # else: self.head, self.head.prev, removed.next = self.head.next, None, None
         
-        return removed.value
+        # return removed.value
 
     def add_to_tail(self, value):
         self.length += 1
