@@ -26,6 +26,12 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
+        # there are cases where the keys still exist
+        # but have been deleted off the DLL
+        # this vvv if statement thinks the node still exists
+        # so when move_to_front assumes that the node it's being
+        # passed exists, it tries to move a node taht doesn't exist
+        # to the front
         if key in self.cache:
             self.storage.move_to_front(self.cache[key])
             return self.cache[key].value[1]
@@ -50,6 +56,9 @@ class LRUCache:
             self.cur += 1
 
         if self.cur > self.max: 
+            # if I can delete the least recently used ref 
+            # in cache by value-search rather than key lookup
+            # I wouldn't have to use Tuples
             del self.cache[self.storage.tail.value[0]]
             self.storage.remove_from_tail()
             self.cur -= 1
