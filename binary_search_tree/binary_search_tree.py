@@ -12,7 +12,34 @@ class BinarySearchTree:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+        self.check_and_place_node(self, value)
+        # if smaller than value in current
+        # scope, check left for None
+        # if greater than value in current
+        # scope, check right for None
+        # if None, create BST and place there
+        # else recurse comparison on branch
+    def check_and_place_node(self, node, value):
+        # receives branch node I'mchecking
+        # and value needing a placement
+        # recurses if checked node is not None
+        # on that Node
+        # returns if node can be placed
+        if value < node.value:
+            # check left
+            if node.left is None:
+                node.left = BinarySearchTree(value)
+                return
+            else:
+                # recurse on node.left
+                self.check_and_place_node(node.left, value)
+        else:
+            # check right
+            if node.right is None:
+                node.right = BinarySearchTree(value)
+                return
+            else:
+                self.check_and_place_node(node.right, value)
 
     # Return True if the tree contains the value
     # False if it does not
