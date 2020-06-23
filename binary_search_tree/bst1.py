@@ -12,31 +12,98 @@ class BinarySearchTree:
         self.right = None
 
     def insert(self, value):
-        pass
+        
+        if value < self.value:
+            if self.left is None: self.left = BinarySearchTree(value)
 
-    def re_checkplace(self, node, value):
-        pass
+            else:
+                self.left.insert(value)
+
+        else:
+            if self.right is None: self.right = BinarySearchTree(value)
+
+            else:
+                self.right.insert(value)
 
     def contains(self, target):
-        pass
+        
+        if self.value == target: return True
+
+        elif self.value > target:
+            if self.left is None: return False
+            else:
+                return self.left.contains(target)
+
+        else:
+            if self.right is None: return False
+            else:
+                return self.right.contains(target)
 
     def get_max(self):
-        pass
+        if self.right is None: return self.value
+
+        else:
+            return self.right.get_max()
 
     def for_each(self, cb):
-        pass
+        cb(self.value)
 
-    def in_order_print(self, node):
-        pass
+        if self.left is not None:
+            self.left.for_each(cb)
+        if self.right is not None:
+            self.right.for_each(cb)
 
-    def bft_print(self, node):
-        pass
+    def in_order_print(self, node=None):
+        if self.left is not None:
+            self.left.in_order_print()
 
-    def dft_print(self, node):
-        pass
+        print(self.value)
+
+        if self.right is not None:
+            self.right.in_order_print()
+
+    def bft_print(self, node=None):
+        q = Queue()
+
+        q.enqueue(self)
+
+        while q.len() > 0:
+            dq = q.dequeue()
+
+            print(dq.value)
+            if dq.left is not None:
+                q.enqueue(dq.left)
+            if dq.right is not None:
+                q.enqueue(dq.right)
+
+    def dft_print(self, node=None):
+        s = Stack()
+
+        s.push(self)
+
+        while s.len() > 0:
+            pop = s.pop()
+            print(pop.value)
+
+            if pop.right is not None:
+                s.push(pop.right)
+            if pop.left is not None:
+                s.push(pop.left)
 
     def pre_order_dft(self, node):
-        pass
+        print(node.value)
+
+        if node.left is not None:
+            node.pre_order_dft(node.left)
+        if node.right is not None:
+            node.pre_order_dft(node.right)
 
     def post_order_dft(self, node):
-        pass
+        
+        if node.left is not None:
+            node.post_order_dft(node.left)
+
+        if node.right is not None:
+            node.post_order_dft(node.right)
+
+        print(node.value)
