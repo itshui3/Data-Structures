@@ -1,3 +1,5 @@
+from doubly_linked_list import DoublyLinkedList
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +9,14 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        self.max = limit
+        self.cur = 0
+        # if cur == max, adding should remove LRU
+        self.storage = DoublyLinkedList()
+        # self.storage.head
+        # self.storage.tail
+        # self.storage.length
+        self.cache = {}
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,8 +26,16 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
-
+        # there are cases where the keys still exist
+        # but have been deleted off the DLL
+        # this vvv if statement thinks the node still exists
+        # so when move_to_front assumes that the node it's being
+        # passed exists, it tries to move a node taht doesn't exist
+        # to the front
+        if key in self.cache:
+            self.storage.move_to_front(self.cache[key])
+            return self.cache[key].value[1]
+        else: return None
     """
     Adds the given key-value pair to the cache. The newly-
     added pair should be considered the most-recently used
@@ -30,4 +47,18 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        if key in self.cache:
+            self.cache[key].value = [key, value]
+            self.storage.move_to_front(self.cache[key])
+        else:
+            self.storage.add_to_head([key, value])
+            self.cache[key] = self.storage.head
+            self.cur += 1
+
+        if self.cur > self.max: 
+            # if I can delete the least recently used ref 
+            # in cache by value-search rather than key lookup
+            # I wouldn't have to use Tuples
+            del self.cache[self.storage.tail.value[0]]
+            self.storage.remove_from_tail()
+            self.cur -= 1

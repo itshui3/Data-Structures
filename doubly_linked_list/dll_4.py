@@ -5,7 +5,7 @@ class ListNode:
         self.next = next
 
 class DoublyLinkedList:
-    def __init__(self, node=None):
+    def __init__(self, node):
         self.head = node
         self.tail = node
         self.length = 1 if node else 0

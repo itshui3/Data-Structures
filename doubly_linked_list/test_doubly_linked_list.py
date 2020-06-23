@@ -1,6 +1,7 @@
 import unittest
 from doubly_linked_list import ListNode
 from doubly_linked_list import DoublyLinkedList
+from dll_5 import DoublyLinkedList
 
 
 class DoublyLinkedListTests(unittest.TestCase):
@@ -67,7 +68,7 @@ class DoublyLinkedListTests(unittest.TestCase):
         node_2.next = node_3
         node_2.prev = node_1
         node_3.prev = node_2
-
+# VERY INTERESTING SYNTAX HERE vvv
         node_2.delete()
 
         self.assertEqual(node_1.next, node_3)
@@ -152,4 +153,4 @@ class DoublyLinkedListTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=0)

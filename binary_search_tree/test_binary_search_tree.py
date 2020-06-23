@@ -67,7 +67,9 @@ class BinarySearchTreeTests(unittest.TestCase):
         # Debug calls to Print() in functions will cause failure
 
         stdout_ = sys.stdout  # Keep previous value
+
         sys.stdout = io.StringIO()
+
 
         self.bst = BinarySearchTree(1)
         self.bst.insert(8)
@@ -82,7 +84,8 @@ class BinarySearchTreeTests(unittest.TestCase):
 
         output = sys.stdout.getvalue()
         self.assertEqual(output, "1\n2\n3\n4\n5\n6\n7\n8\n")
-
+# why do I need to store io.StringIO() in sys.stdout
+# to call .getvalue()?
         sys.stdout = io.StringIO()
         self.bst.bft_print(self.bst)
         output = sys.stdout.getvalue()
