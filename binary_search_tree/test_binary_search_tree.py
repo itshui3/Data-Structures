@@ -2,7 +2,7 @@ import unittest
 import random
 import sys
 import io
-from binary_search_tree import BinarySearchTree
+from bst1 import BinarySearchTree
 
 
 class BinarySearchTreeTests(unittest.TestCase):
