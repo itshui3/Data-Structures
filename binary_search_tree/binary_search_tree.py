@@ -1,9 +1,18 @@
 import sys
+import os
 
-sys.path.append('./queue_and_stack')
+parent_split = os.path.dirname( __file__ ).split('/')[:-1]
+parent_path = ''
+
+for i in parent_split: parent_path += i + '/'
+
+parent_path += 'queue_and_stack'
+sys.path.append(parent_path)
+
 from dll_queue import Queue
 from dll_stack import Stack
 
+print(Queue)
 
 class BinarySearchTree:
     def __init__(self, value):

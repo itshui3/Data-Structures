@@ -24,9 +24,33 @@ def hourglassSum(arr):
 
 def re_check_sum(arr, coords={'x': 0, 'y': 0}):
 
-    maximum = sum_hourglass(arr, coords)
+    self_maximum = sum_hourglass(arr, coords)
 
-    if coords['y'] == 3:
+# iterate coords logic
+    if coords['y'] > 2:
+        if coords['x'] > 2:
+            # prevent recurse
+            return None
+        else:
+            coords['x'] += 1
+    else:
+        if coords['x'] > 2:
+            coords['y'] += 1
+            coords['x'] = 0
+        else:
+            coords['x'] += 1
+
+    next_maximum = re_check_sum(arr, coords)
+
+    if next_maximum is None:
+        return self_maximum
+    
+    if next_maximum > self_maximum:
+        return next_maximum
+    else:
+        return self_maximum
+
+
 
 
 def sum_hourglass(arr, coords):
@@ -52,4 +76,4 @@ num_m = [
     [0, 0, 1, 2, 4, 0],
 ]
 
-print(hourglassSum(num_m))
+print(re_check_sum(num_m))
