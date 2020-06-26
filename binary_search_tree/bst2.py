@@ -5,7 +5,7 @@ from dll_stack import Stack
 
 
 class BinarySearchTree:
-    def __init__(self, value):
+    def __init__(self, value=None):
         self.value = value
         self.left = None
         self.right = None
@@ -13,6 +13,9 @@ class BinarySearchTree:
 # U:
 # if BST is initialized with a value, we can assume that root is not None
     def insert(self, value):
+        if self.value is None:
+            self.value = value
+            return
 
         if value < self.value:
             if self.left is None:
@@ -28,6 +31,7 @@ class BinarySearchTree:
 # U:
 # if I treat target as a value I'm placing, where would it go?
     def contains(self, target):
+        if self.value is None: return False
         
         if self.value == target: return True
 
@@ -43,6 +47,7 @@ class BinarySearchTree:
                     return self.right.contains(target)
 
     def get_max(self):
+        if self.value is None: return None
         
         if self.right is None: return self.value
 
@@ -50,6 +55,7 @@ class BinarySearchTree:
             return self.right.get_max()
 
     def for_each(self, cb):
+        if self.value is None: return None
         
         cb(self.value)
 
@@ -61,7 +67,8 @@ class BinarySearchTree:
     def in_order_print(self, node=None):
         if self.left is not None:
             self.left.in_order_print()
-        print(self.value)
+        if self.value is not None:
+            print(self.value)
         if self.right is not None:
             self.right.in_order_print()
 
@@ -91,7 +98,8 @@ class BinarySearchTree:
                 s.push(pop.left)
 
     def pre_order_dft(self, node=None):
-        print(self.value)
+        if self.value is not None:
+            print(self.value)
 
         if self.left is not None:
             self.left.pre_order_dft()
@@ -107,4 +115,5 @@ class BinarySearchTree:
         if self.right is not None:
             self.right.post_order_dft()
 
-        print(self.value)
+        if self.value is not None:
+            print(self.value)
